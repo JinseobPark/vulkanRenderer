@@ -44,14 +44,37 @@ set(IMGUI_SOURCES
     ${IMGUI_DIR}/backends/imgui_impl_vulkan.cpp
 )
 
-# 소스 파일
-set(SOURCES
+# 소스 파일 - New Directory Structure
+set(CORE_SOURCES
     src/main.cpp
-    src/app.cpp
-    src/window.cpp
-    src/device.cpp
-    src/swapchain.cpp
-    src/pipeline.cpp
+    src/core/app.cpp
+    src/core/window.cpp
+    src/core/input.cpp
+    src/core/camera.cpp
+    src/core/timer.cpp
+)
+
+set(VULKAN_SOURCES
+    src/vulkan/device.cpp
+    src/vulkan/swapchain.cpp
+    src/vulkan/pipeline.cpp
+    src/vulkan/buffer.cpp
+    src/vulkan/descriptor.cpp
+)
+
+set(RESOURCE_SOURCES
+    src/resource/mesh.cpp
+)
+
+set(UI_SOURCES
+    src/ui/imgui_layer.cpp
+)
+
+set(SOURCES
+    ${CORE_SOURCES}
+    ${VULKAN_SOURCES}
+    ${RESOURCE_SOURCES}
+    ${UI_SOURCES}
     ${IMGUI_SOURCES}
 )
 
