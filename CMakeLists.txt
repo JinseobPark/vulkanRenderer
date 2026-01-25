@@ -12,7 +12,17 @@ find_package(Vulkan REQUIRED)
 
 # 프로젝트 경로 설정
 set(EXTERN_DIR ${CMAKE_SOURCE_DIR}/extern)
-set(GLFW_DIR ${EXTERN_DIR}/glfw)
+
+# GLFW 빌드 옵션 설정 (불필요한 빌드 비활성화)
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
+
+# GLFW submodule 추가
+add_subdirectory(${EXTERN_DIR}/glfw)
+
+# GLM은 header-only 라이브러리
 set(GLM_DIR ${EXTERN_DIR}/glm)
 
 # 소스 파일
@@ -26,14 +36,14 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 # Include 디렉토리
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${Vulkan_INCLUDE_DIRS}
-    ${GLFW_DIR}
+    ${EXTERN_DIR}/glfw/include
     ${GLM_DIR}
 )
 
 # 라이브러리 링크
 target_link_libraries(${PROJECT_NAME} PRIVATE
     ${Vulkan_LIBRARIES}
-    ${GLFW_DIR}/lib/glfw3_mt.lib
+    glfw
 )
 
 # MSVC 링크 옵션 (LIBCMT 충돌 해결)
