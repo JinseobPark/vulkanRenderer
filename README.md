@@ -1,10 +1,17 @@
-# Vulkan Renderer
+# Vulkan Fluid & Cloth Simulation Renderer
 
-Vulkan API를 학습하고 다양한 렌더링 기법을 실험하기 위한 연습 프로젝트입니다.
+Vulkan API를 활용한 고급 물리 시뮬레이션 및 렌더링 프로젝트입니다.
 
 ## 📝 프로젝트 목표
 
-이 프로젝트는 Vulkan의 기초부터 시작하여, 점진적으로 다양한 렌더링 기법을 적용하고 실험하는 것을 목표로 합니다.
+이 프로젝트는 Vulkan Compute Shader를 활용한 실시간 물리 시뮬레이션과 고급 렌더링 기법을 구현하는 것을 목표로 합니다.
+
+### 주요 목표
+
+- **Fluid Simulation**: SPH (Smoothed Particle Hydrodynamics) 기반 실시간 유체 시뮬레이션
+- **Cloth Simulation**: PBD (Position Based Dynamics) 기반 천 시뮬레이션
+- **Deferred Rendering**: G-Buffer 기반 고급 렌더링 파이프라인
+- **Post Processing**: Bloom, Tone Mapping, FXAA 등 후처리 효과
 
 ### 단계별 목표
 
@@ -20,24 +27,36 @@ Vulkan API를 학습하고 다양한 렌더링 기법을 실험하기 위한 연
   - [ ] 텍스처 매핑
   - [ ] 3D 모델 로딩
 
-- [ ] **Phase 3: 고급 렌더링 기법**
-  - [ ] Depth Testing
-  - [ ] Lighting (Phong/PBR)
+- [ ] **Phase 3: Deferred Rendering Pipeline**
+  - [ ] G-Buffer 구성 (Position, Normal, Albedo)
+  - [ ] Lighting Pass (Deferred Shading)
   - [ ] Shadow Mapping
-  - [ ] Normal Mapping
-  - [ ] Post-processing Effects
+  - [ ] SSAO (Screen Space Ambient Occlusion)
 
-- [ ] **Phase 4: 최적화 기법**
-  - [ ] Frustum Culling
-  - [ ] Instancing
-  - [ ] Compute Shader
-  - [ ] Multi-threading
+- [ ] **Phase 4: Fluid Simulation (SPH)**
+  - [ ] Compute Shader 기반 SPH Solver
+  - [ ] Spatial Hashing (이웃 탐색)
+  - [ ] Screen-Space Fluid Rendering
+  - [ ] Depth Smoothing & Normal Reconstruction
+
+- [ ] **Phase 5: Cloth Simulation (PBD)**
+  - [ ] PBD Solver (Compute Shader)
+  - [ ] Distance & Bending Constraints
+  - [ ] Collision Detection
+  - [ ] Cloth Mesh Rendering
+
+- [ ] **Phase 6: Post Processing**
+  - [ ] Bloom Effect
+  - [ ] Tone Mapping (HDR)
+  - [ ] FXAA (Anti-aliasing)
+  - [ ] Post Process Stack
 
 ## 🛠️ 기술 스택
 
 - **API**: Vulkan 1.4.335.0
 - **윈도우 관리**: GLFW 3.x
 - **수학 라이브러리**: GLM
+- **UI 라이브러리**: ImGui (docking branch)
 - **빌드 시스템**: CMake 3.16+
 - **컴파일러**: MSVC 2022 (C++17) / Clang (Mac)
 - **플랫폼**: Windows, macOS (MoltenVK)
@@ -55,8 +74,10 @@ vulkanRenderer/
 │   └── triangle.frag.spv     # 컴파일된 Fragment 셰이더
 ├── extern/
 │   ├── glfw/                 # GLFW 라이브러리 (submodule)
-│   └── glm/                  # GLM 수학 라이브러리 (submodule)
-├── docx/
+│   ├── glm/                  # GLM 수학 라이브러리 (submodule)
+│   └── imgui/                # ImGui UI 라이브러리 (submodule)
+├── docs/
+│   ├── engine_architecture.md # 엔진 아키텍처 설계 문서
 │   └── vulkanApi.md          # Vulkan API 레퍼런스
 ├── build/                    # 빌드 출력 디렉토리
 ├── .gitmodules               # Git submodule 설정
@@ -189,9 +210,22 @@ cmake --build build --config Release
 
 ## 📚 학습 자료
 
-- [Vulkan API Reference](docx/vulkanApi.md) - 프로젝트에 사용된 API 정리
+### 프로젝트 문서
+- [Engine Architecture](docs/engine_architecture.md) - 전체 시스템 아키텍처 및 설계
+- [Vulkan API Reference](docs/vulkanApi.md) - 프로젝트에 사용된 API 정리
+
+### Vulkan
 - [Vulkan Tutorial](https://vulkan-tutorial.com/) - 공식 튜토리얼
 - [Vulkan Specification](https://www.khronos.org/registry/vulkan/)
+- [Vulkan Guide](https://github.com/KhronosGroup/Vulkan-Guide)
+
+### Fluid Simulation
+- [Position Based Fluids (Macklin & Müller)](https://mmacklin.com/pbf_sig_preprint.pdf)
+- [Screen Space Fluid Rendering (NVIDIA GPU Gems 3)](https://developer.nvidia.com/gpugems/gpugems3/part-v-physics-simulation/chapter-30-real-time-simulation-and-rendering-3d-fluids)
+
+### Cloth Simulation
+- [XPBD (Extended Position Based Dynamics)](https://matthias-research.github.io/pages/publications/XPBD.pdf)
+- [GPU Cloth Simulation (NVIDIA)](https://developer.nvidia.com/content/gpu-accelerated-cloth-simulation-physics-x)
 
 ## 🐛 디버깅
 
@@ -276,6 +310,8 @@ cmake -B build
 
 - [Vulkan Tutorial by Alexander Overvoorde](https://vulkan-tutorial.com/)
 - [Vulkan Guide](https://github.com/KhronosGroup/Vulkan-Guide)
+- [GPU Gems 3 - Fluid Simulation](https://developer.nvidia.com/gpugems/gpugems3)
+- [Real-Time Rendering Resources](http://www.realtimerendering.com/)
 
 ---
 

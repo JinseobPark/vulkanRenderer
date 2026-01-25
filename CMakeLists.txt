@@ -32,6 +32,18 @@ add_subdirectory(${EXTERN_DIR}/glfw)
 # GLM은 header-only 라이브러리
 set(GLM_DIR ${EXTERN_DIR}/glm)
 
+# ImGui 소스 파일
+set(IMGUI_DIR ${EXTERN_DIR}/imgui)
+set(IMGUI_SOURCES
+    ${IMGUI_DIR}/imgui.cpp
+    ${IMGUI_DIR}/imgui_demo.cpp
+    ${IMGUI_DIR}/imgui_draw.cpp
+    ${IMGUI_DIR}/imgui_tables.cpp
+    ${IMGUI_DIR}/imgui_widgets.cpp
+    ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp
+    ${IMGUI_DIR}/backends/imgui_impl_vulkan.cpp
+)
+
 # 소스 파일
 set(SOURCES
     src/main.cpp
@@ -40,6 +52,7 @@ set(SOURCES
     src/device.cpp
     src/swapchain.cpp
     src/pipeline.cpp
+    ${IMGUI_SOURCES}
 )
 
 # 실행 파일 생성
@@ -50,6 +63,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${Vulkan_INCLUDE_DIRS}
     ${EXTERN_DIR}/glfw/include
     ${GLM_DIR}
+    ${IMGUI_DIR}
+    ${IMGUI_DIR}/backends
 )
 
 # 라이브러리 링크
