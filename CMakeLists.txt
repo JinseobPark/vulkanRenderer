@@ -28,6 +28,11 @@ set(GLM_DIR ${EXTERN_DIR}/glm)
 # 소스 파일
 set(SOURCES
     src/main.cpp
+    src/app.cpp
+    src/window.cpp
+    src/device.cpp
+    src/swapchain.cpp
+    src/pipeline.cpp
 )
 
 # 실행 파일 생성
