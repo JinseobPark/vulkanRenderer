@@ -4,8 +4,15 @@ project(VulkanRenderer VERSION 1.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Vulkan SDK 경로 설정
-set(VULKAN_SDK_PATH "C:/VulkanSDK/1.4.335.0")
+# 플랫폼별 Vulkan SDK 경로 설정
+if(APPLE)
+    # Mac: Homebrew로 설치한 경우 자동 탐지
+    # 또는 수동 설치: /usr/local 또는 ~/VulkanSDK
+    set(VULKAN_SDK_PATH $ENV{VULKAN_SDK})
+else()
+    # Windows: 기본 설치 경로
+    set(VULKAN_SDK_PATH "C:/VulkanSDK/1.4.335.0")
+endif()
 
 # Vulkan 찾기
 find_package(Vulkan REQUIRED)
@@ -51,22 +58,55 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     glfw
 )
 
-# MSVC 링크 옵션 (LIBCMT 충돌 해결)
-if(MSVC)
-    target_link_options(${PROJECT_NAME} PRIVATE /NODEFAULTLIB:LIBCMT)
-endif()
-
-# Windows 전용 설정
-if(WIN32)
+# 플랫폼별 설정
+if(APPLE)
+    # Mac 전용 설정
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+        VK_USE_PLATFORM_MACOS_MVK
+        VK_USE_PLATFORM_METAL_EXT
+        GLFW_INCLUDE_VULKAN
+    )
+    
+    # MoltenVK 프레임워크 링크 (Vulkan SDK에 포함)
+    find_library(MOLTEN_VK MoltenVK PATHS
+        $ENV{VULKAN_SDK}/lib
+        /usr/local/lib
+        ~/VulkanSDK/macOS/lib
+    )
+    if(MOLTEN_VK)
+        target_link_libraries(${PROJECT_NAME} PRIVATE ${MOLTEN_VK})
+    endif()
+    
+    # macOS 프레임워크
+    find_library(COCOA_LIBRARY Cocoa REQUIRED)
+    find_library(IOKIT_LIBRARY IOKit REQUIRED)
+    find_library(COREVIDEO_LIBRARY CoreVideo REQUIRED)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        ${COCOA_LIBRARY}
+        ${IOKIT_LIBRARY}
+        ${COREVIDEO_LIBRARY}
+    )
+    
+    # C++17 표준 설정
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+    
+elseif(WIN32)
+    # Windows 전용 설정
     target_compile_definitions(${PROJECT_NAME} PRIVATE
         VK_USE_PLATFORM_WIN32_KHR
         GLFW_INCLUDE_VULKAN
         NOMINMAX
         WIN32_LEAN_AND_MEAN
     )
+    
     # UTF-8 소스 코드 인코딩 설정
     if(MSVC)
         target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
+    endif()
+    
+    # MSVC 링크 옵션 (LIBCMT 충돌 해결)
+    if(MSVC)
+        target_link_options(${PROJECT_NAME} PRIVATE /NODEFAULTLIB:LIBCMT)
     endif()
 endif()
 

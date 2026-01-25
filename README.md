@@ -39,7 +39,8 @@ Vulkan API를 학습하고 다양한 렌더링 기법을 실험하기 위한 연
 - **윈도우 관리**: GLFW 3.x
 - **수학 라이브러리**: GLM
 - **빌드 시스템**: CMake 3.16+
-- **컴파일러**: MSVC 2022 (C++17)
+- **컴파일러**: MSVC 2022 (C++17) / Clang (Mac)
+- **플랫폼**: Windows, macOS (MoltenVK)
 
 ## 📁 프로젝트 구조
 
@@ -68,6 +69,8 @@ vulkanRenderer/
 
 ### 사전 요구사항
 
+#### Windows
+
 1. **Vulkan SDK** (1.4.335.0 이상)
    - 설치 경로: `C:\VulkanSDK\1.4.335.0`
    - [다운로드](https://vulkan.lunarg.com/)
@@ -78,7 +81,30 @@ vulkanRenderer/
 3. **Visual Studio 2022**
    - C++ Desktop Development 워크로드 설치
 
+#### macOS
+
+1. **Vulkan SDK 및 MoltenVK**
+   ```bash
+   # Homebrew로 설치 (권장)
+   brew install molten-vk vulkan-loader vulkan-headers
+   
+   # 또는 공식 SDK 다운로드
+   # https://vulkan.lunarg.com/sdk/home
+   ```
+
+2. **CMake**
+   ```bash
+   brew install cmake
+   ```
+
+3. **Xcode Command Line Tools**
+   ```bash
+   xcode-select --install
+   ```
+
 ### 빌드 방법
+
+#### Windows
 
 ```powershell
 # 1. submodule 초기화 (최초 클론 시)
@@ -97,12 +123,44 @@ cmake --build build --config Debug
 .\build\Debug\VulkanRenderer.exe
 ```
 
+#### macOS
+
+```bash
+# 1. submodule 초기화 (최초 클론 시)
+git submodule update --init --recursive
+
+# 2. 셰이더 컴파일 스크립트에 실행 권한 부여
+chmod +x compile_shaders.sh
+
+# 3. 셰이더 컴파일
+./compile_shaders.sh
+
+# 4. CMake 프로젝트 생성
+cmake -B build -DCMAKE_BUILD_TYPE=Debug
+
+# 5. 빌드 실행
+cmake --build build --config Debug
+
+# 6. 실행
+./build/Debug/VulkanRenderer
+# 또는
+./build/VulkanRenderer  # 빌드 시스템에 따라 다를 수 있음
+```
+
 ### Release 빌드
 
+#### Windows
 ```powershell
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
 .\build\Release\VulkanRenderer.exe
+```
+
+#### macOS
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
+./build/Release/VulkanRenderer
 ```
 
 ## 🎮 현재 구현된 기능
@@ -152,12 +210,26 @@ const bool enableValidationLayers = true;
 **문제**: `Failed to create Vulkan instance`
 - **해결**: Vulkan SDK가 올바르게 설치되었는지 확인
 - 환경변수 `VULKAN_SDK`가 설정되어 있는지 확인
+- (Mac) MoltenVK가 올바르게 설치되었는지 확인: `brew list molten-vk`
 
 **문제**: 셰이더 컴파일 오류
-- **해결**: `compile_shaders.bat` 실행하여 `.spv` 파일 생성
+- **해결** (Windows): `compile_shaders.bat` 실행하여 `.spv` 파일 생성
+- **해결** (Mac): `./compile_shaders.sh` 실행하여 `.spv` 파일 생성
+- `glslc` 명령어가 없는 경우 Vulkan SDK 설치 확인
 
 **문제**: Validation Layer 경고
 - **해결**: [docx/vulkanApi.md](docx/vulkanApi.md)의 베스트 프랙티스 참고
+
+**문제** (Mac): `dyld: Library not loaded: @rpath/libvulkan.1.dylib`
+- **해결**: Vulkan SDK 환경변수 설정
+  ```bash
+  export VULKAN_SDK=~/VulkanSDK/x.x.x.x/macOS  # 버전에 맞게 수정
+  export PATH=$VULKAN_SDK/bin:$PATH
+  export DYLD_LIBRARY_PATH=$VULKAN_SDK/lib:$DYLD_LIBRARY_PATH
+  export VK_ICD_FILENAMES=$VULKAN_SDK/share/vulkan/icd.d/MoltenVK_icd.json
+  export VK_LAYER_PATH=$VULKAN_SDK/share/vulkan/explicit_layer.d
+  ```
+  - 또는 `~/.zshrc` 또는 `~/.bash_profile`에 추가
 
 ## 🔧 개발 환경 설정
 
@@ -177,8 +249,24 @@ cmake -B build
 ### 셰이더 수정 시
 
 1. `.vert` 또는 `.frag` 파일 수정
-2. `compile_shaders.bat` 실행
+2. 셰이더 컴파일
+   - Windows: `compile_shaders.bat` 실행
+   - Mac/Linux: `./compile_shaders.sh` 실행
 3. 프로그램 재실행
+
+## ⚠️ 플랫폼별 주의사항
+
+### macOS (MoltenVK)
+
+- **지원 버전**: MoltenVK는 Vulkan 1.2까지 지원하며, 일부 확장 기능은 제한될 수 있습니다.
+- **성능**: Vulkan API가 Metal로 변환되는 과정에서 약간의 오버헤드가 발생할 수 있습니다.
+- **Validation Layers**: 일부 레이어가 Windows와 다르게 동작하거나 사용 불가능할 수 있습니다.
+- **환경변수**: Vulkan SDK가 Homebrew로 설치된 경우, 환경변수 설정이 자동으로 처리됩니다.
+
+### Windows
+
+- **Vulkan SDK**: 네이티브 Vulkan 드라이버가 GPU에서 직접 실행됩니다.
+- **Visual Studio**: MSVC 컴파일러를 사용하여 최적화된 빌드가 가능합니다.
 
 ## 📄 라이선스
 
@@ -193,4 +281,5 @@ cmake -B build
 
 **작성일**: 2026-01  
 **Vulkan 버전**: 1.4.335.0  
-**개발 환경**: Windows 11, Visual Studio 2022
+**지원 플랫폼**: Windows 11, macOS (MoltenVK)  
+**개발 환경**: Visual Studio 2022 / Xcode
