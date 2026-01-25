@@ -53,12 +53,12 @@ vulkanRenderer/
 │   ├── triangle.vert.spv     # 컴파일된 Vertex 셰이더
 │   └── triangle.frag.spv     # 컴파일된 Fragment 셰이더
 ├── extern/
-│   ├── glfw/                 # GLFW 라이브러리
-│   ├── glm/                  # GLM 수학 라이브러리
-│   └── KHR/                  # Khronos 헤더
+│   ├── glfw/                 # GLFW 라이브러리 (submodule)
+│   └── glm/                  # GLM 수학 라이브러리 (submodule)
 ├── docx/
 │   └── vulkanApi.md          # Vulkan API 레퍼런스
 ├── build/                    # 빌드 출력 디렉토리
+├── .gitmodules               # Git submodule 설정
 ├── CMakeLists.txt
 ├── compile_shaders.bat       # 셰이더 컴파일 스크립트
 └── README.md
@@ -81,17 +81,20 @@ vulkanRenderer/
 ### 빌드 방법
 
 ```powershell
-# 1. 셰이더 컴파일
+# 1. submodule 초기화 (최초 클론 시)
+git submodule update --init --recursive
+
+# 2. 셰이더 컴파일
 .\compile_shaders.bat
 
-# 2. CMake 프로젝트 생성
+# 3. CMake 프로젝트 생성
 cmake -B build -DCMAKE_BUILD_TYPE=Debug
 
-# 3. 빌드 실행
+# 4. 빌드 실행
 cmake --build build --config Debug
 
-# 4. 실행
-.\build\Debug\VulkanTriangle.exe
+# 5. 실행
+.\build\Debug\VulkanRenderer.exe
 ```
 
 ### Release 빌드
@@ -99,7 +102,7 @@ cmake --build build --config Debug
 ```powershell
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
-.\build\Release\VulkanTriangle.exe
+.\build\Release\VulkanRenderer.exe
 ```
 
 ## 🎮 현재 구현된 기능
