@@ -3,7 +3,7 @@
 #include <cassert>
 #include <cstring>
 
-namespace vkr {
+namespace rs {
 
 VkDeviceSize Buffer::getAlignment(VkDeviceSize instanceSize, VkDeviceSize minOffsetAlignment) {
     if (minOffsetAlignment > 0) {
@@ -97,4 +97,4 @@ VkResult Buffer::invalidateIndex(int index) {
     return invalidate(alignmentSize_, index * alignmentSize_);
 }
 
-} // namespace vkr
+} // namespace rs

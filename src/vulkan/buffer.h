@@ -2,7 +2,7 @@
 
 #include "device.h"
 
-namespace vkr {
+namespace rs {
 
 class Buffer {
 public:
@@ -57,4 +57,4 @@ private:
     VkMemoryPropertyFlags memoryPropertyFlags_;
 };
 
-} // namespace vkr
+} // namespace rs

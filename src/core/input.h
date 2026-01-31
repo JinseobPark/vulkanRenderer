@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <array>
 
-namespace vkr {
+namespace rs {
 
 class Input {
 public:
@@ -53,4 +53,4 @@ private:
     static inline bool firstMouse_ = true;
 };
 
-} // namespace vkr
+} // namespace rs

@@ -8,7 +8,7 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-namespace vkr {
+namespace rs {
 
 std::vector<VkVertexInputBindingDescription> Mesh::Vertex::getBindingDescriptions() {
     std::vector<VkVertexInputBindingDescription> bindingDescriptions(1);
@@ -287,4 +287,4 @@ void Mesh::Builder::loadFromObjFile(const std::string& filepath) {
     indices.clear();
 }
 
-} // namespace vkr
+} // namespace rs

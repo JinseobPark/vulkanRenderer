@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace vkr {
+namespace rs {
 
 Window::Window(int width, int height, const std::string& title)
     : width_(width), height_(height), title_(title) {
@@ -39,4 +39,4 @@ void Window::framebufferResizeCallback(GLFWwindow* window, int width, int height
     windowPtr->height_ = height;
 }
 
-} // namespace vkr
+} // namespace rs

@@ -10,7 +10,7 @@
 #include <memory>
 #include <vector>
 
-namespace vkr {
+namespace rs {
 
 class Mesh {
 public:
@@ -70,4 +70,4 @@ private:
     uint32_t indexCount_;
 };
 
-} // namespace vkr
+} // namespace rs

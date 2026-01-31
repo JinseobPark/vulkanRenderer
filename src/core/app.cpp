@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <iostream>
 
-namespace vkr {
+namespace rs {
 
 struct GlobalUbo {
     glm::mat4 model;
@@ -342,4 +342,4 @@ void App::renderImGui() {
     }
 }
 
-} // namespace vkr
+} // namespace rs

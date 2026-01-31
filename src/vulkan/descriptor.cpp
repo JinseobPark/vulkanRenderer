@@ -3,7 +3,7 @@
 #include <cassert>
 #include <stdexcept>
 
-namespace vkr {
+namespace rs {
 
 // ===== DescriptorSetLayout Builder =====
 
@@ -188,4 +188,4 @@ void DescriptorWriter::overwrite(VkDescriptorSet& set) {
     vkUpdateDescriptorSets(pool_.device_.device(), static_cast<uint32_t>(writes_.size()), writes_.data(), 0, nullptr);
 }
 
-} // namespace vkr
+} // namespace rs

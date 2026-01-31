@@ -4,7 +4,7 @@
 #include <imgui_impl_vulkan.h>
 #include <stdexcept>
 
-namespace vkr {
+namespace rs {
 
 ImGuiLayer::ImGuiLayer(Device& device, Window& window, VkRenderPass renderPass, uint32_t imageCount)
     : device_(device) {
@@ -113,4 +113,4 @@ void ImGuiLayer::setupStyle() {
     colors[ImGuiCol_TitleBgActive] = ImVec4(0.15f, 0.32f, 0.50f, 1.00f);
 }
 
-} // namespace vkr
+} // namespace rs

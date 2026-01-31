@@ -8,7 +8,7 @@
 #include <limits>
 #include <stdexcept>
 
-namespace vkr {
+namespace rs {
 
 SwapChain::SwapChain(Device& deviceRef, VkExtent2D extent)
     : device_(deviceRef), windowExtent_(extent) {
@@ -383,4 +383,4 @@ VkFormat SwapChain::findDepthFormat() {
         VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
 }
 
-} // namespace vkr
+} // namespace rs

@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <unordered_set>
 
-namespace vkr {
+namespace rs {
 
 // 디버그 메신저 생성/삭제 함수
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
@@ -574,4 +574,4 @@ void Device::endSingleTimeCommands(VkCommandBuffer commandBuffer) {
     vkFreeCommandBuffers(device_, commandPool_, 1, &commandBuffer);
 }
 
-} // namespace vkr
+} // namespace rs

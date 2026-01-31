@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace vkr {
+namespace rs {
 
 Camera::Camera() {
     updateView();
@@ -147,4 +147,4 @@ void Camera::updateFPSVectors() {
     updateView();
 }
 
-} // namespace vkr
+} // namespace rs

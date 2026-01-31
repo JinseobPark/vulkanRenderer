@@ -7,7 +7,7 @@
 
 #include <string>
 
-namespace vkr {
+namespace rs {
 
 class Window {
 public:
@@ -40,4 +40,4 @@ private:
     GLFWwindow* window_;
 };
 
-} // namespace vkr
+} // namespace rs

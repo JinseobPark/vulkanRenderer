@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 
-namespace vkr {
+namespace rs {
 
 class SwapChain {
 public:
@@ -82,4 +82,4 @@ private:
     size_t currentFrame_ = 0;
 };
 
-} // namespace vkr
+} // namespace rs

@@ -6,7 +6,7 @@
 
 #include <imgui.h>
 
-namespace vkr {
+namespace rs {
 
 class ImGuiLayer {
 public:
@@ -30,4 +30,4 @@ private:
     VkDescriptorPool descriptorPool_ = VK_NULL_HANDLE;
 };
 
-} // namespace vkr
+} // namespace rs

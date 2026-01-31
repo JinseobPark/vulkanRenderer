@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace vkr {
+namespace rs {
 
 struct PipelineConfigInfo {
     PipelineConfigInfo() = default;
@@ -61,4 +61,4 @@ private:
     VkShaderModule fragShaderModule_;
 };
 
-} // namespace vkr
+} // namespace rs

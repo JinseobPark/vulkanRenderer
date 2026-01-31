@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace vkr {
+namespace rs {
 
 class Camera {
 public:
@@ -105,4 +105,4 @@ private:
     glm::mat4 projectionMatrix_{1.0f};
 };
 
-} // namespace vkr
+} // namespace rs

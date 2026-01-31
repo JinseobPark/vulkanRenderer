@@ -15,7 +15,7 @@
 #include <memory>
 #include <vector>
 
-namespace vkr {
+namespace rs {
 
 class App {
 public:
@@ -67,4 +67,4 @@ private:
     bool showDemoWindow_ = true;
 };
 
-} // namespace vkr
+} // namespace rs

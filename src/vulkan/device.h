@@ -6,7 +6,7 @@
 #include <vector>
 #include <optional>
 
-namespace vkr {
+namespace rs {
 
 struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;
@@ -128,4 +128,4 @@ private:
     const std::vector<const char*> deviceExtensions_ = {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
 };
 
-} // namespace vkr
+} // namespace rs

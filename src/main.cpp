@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 int main() {
-    vkr::App app;
+    rs::App app;
 
     try {
         app.run();

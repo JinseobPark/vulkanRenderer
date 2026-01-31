@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace vkr {
+namespace rs {
 
 Timer::Timer() {
     startTime_ = Clock::now();
@@ -39,4 +39,4 @@ float Timer::tick() {
     return deltaTime_;
 }
 
-} // namespace vkr
+} // namespace rs

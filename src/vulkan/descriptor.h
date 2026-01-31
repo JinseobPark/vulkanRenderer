@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace vkr {
+namespace rs {
 
 class DescriptorSetLayout {
 public:
@@ -95,4 +95,4 @@ private:
     std::vector<VkWriteDescriptorSet> writes_;
 };
 
-} // namespace vkr
+} // namespace rs

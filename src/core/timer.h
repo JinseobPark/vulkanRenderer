@@ -2,7 +2,7 @@
 
 #include <chrono>
 
-namespace vkr {
+namespace rs {
 
 class Timer {
 public:
@@ -47,4 +47,4 @@ private:
     uint64_t frameCount_ = 0;
 };
 
-} // namespace vkr
+} // namespace rs

@@ -1,6 +1,6 @@
 #include "input.h"
 
-namespace vkr {
+namespace rs {
 
 void Input::init(Window& window) {
     window_ = window.getGLFWWindow();
@@ -115,4 +115,4 @@ void Input::scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
     scrollDelta_ = static_cast<float>(yoffset);
 }
 
-} // namespace vkr
+} // namespace rs

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdexcept>
 
-namespace vkr {
+namespace rs {
 
 Pipeline::Pipeline(
     Device& device,
@@ -210,4 +210,4 @@ void Pipeline::enableAlphaBlending(PipelineConfigInfo& configInfo) {
     configInfo.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
 }
 
-} // namespace vkr
+} // namespace rs
